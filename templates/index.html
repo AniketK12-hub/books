@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Bookstore</title>
+</head>
+<body>
+  {% extends 'base.html' %}
+  {% block content %}
+  
+  <div class="text-center mb-4">
+      <h1 class="display-4">Welcome to the Online Bookstore 📚</h1>
+      <p class="lead">Discover and order your favorite books with ease!</p>
+  </div>
+  
+  <!-- 🔍 Search Form -->
+  <form method="GET" action="/" class="mb-4 d-flex justify-content-center">
+      <input type="text" name="q" class="form-control w-50 me-2" placeholder="Search by title or author..." value="{{ request.args.get('q', '') }}">
+      <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  
+  <!-- 🛒 Show Cart Button if user is logged in -->
+  {% if logged_in %}
+  <div class="text-center mb-4">
+      <a href="{{ url_for('cart') }}" class="btn btn-outline-success">
+          🛒 View Cart
+      </a>
+  </div>
+  {% endif %}
+  
+  <h2>Books Available</h2>
+  
+  <!-- ✅ Book List or No Results Message -->
+  {% if books %}
+  <div class="row">
+      {% for book in books %}
+      <div class="col-md-4">
+          <div class="card mb-4">
+              <img src="/static/{{ book[4] }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+              <div class="card-body">
+                  <h5 class="card-title">{{ book[1] }}</h5>
+                  <p class="card-text">
+                      Author: {{ book[2] }}<br>
+                      Price: ₹{{ book[3] }}
+                  </p>
+                  <a href="{% if logged_in %}{{ url_for('add_to_cart', book_id=book[0]) }}{% else %}{{ url_for('login') }}{% endif %}" class="btn btn-primary">
+                      Add to Cart
+                  </a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center mt-4">
+      😕 No books found for "{{ request.args.get('q') }}"
+  </div>
+  {% endif %}
+  
+  {% endblock %}
+  
+
+
+  
+    <br><hr>
+    <a href="/cart">🛒 View Cart</a>
+</body>
+</html>

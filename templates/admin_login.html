@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <h2>Admin Login</h2>
+    <form method="POST">
+        <input type="text" name="username" class="form-control mb-2" placeholder="Admin Username" required>
+        <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
+        <button type="submit" class="btn btn-dark">Login</button>
+    </form>
+    {% endblock %}
+    
+</body>
+</html>

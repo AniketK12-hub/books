@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<!-- Add Book Form -->
+<h4>Add New Book</h4>
+<form method="POST" action="/admin/add-book">
+    <input type="text" name="title" class="form-control mb-2" placeholder="Title" required>
+    <input type="text" name="author" class="form-control mb-2" placeholder="Author">
+    <input type="number" step="0.01" name="price" class="form-control mb-2" placeholder="Price" required>
+    <input type="text" name="image" class="form-control mb-3" placeholder="Image Filename (e.g., book.jpg)">
+    <button type="submit" class="btn btn-primary">Add Book</button>
+</form>
+
+<hr>
+
+<!-- Book List -->
+<h4>Book List</h4>
+<table class="table table-bordered">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Image</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book[1] }}</td>
+        <td>{{ book[2] }}</td>
+        <td>₹{{ book[3] }}</td>
+        <td><img src="/static/{{ book[4] }}" width="50"></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<!-- Orders -->
+<h4>Orders Received</h4>
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Payment</th>
+        <th>Date</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order[1] }}</td>
+        <td>{{ order[2] }}</td>
+        <td>{{ order[5] }}</td>
+        <td>₹{{ order[6] }}</td>
+        <td>{{ order[4] }}</td>
+        <td>{{ order[7] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+</body>
+</html>
